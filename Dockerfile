@@ -1,15 +1,14 @@
-FROM alpine:latest
+FROM debian:latest
 
 LABEL description "Murmur server" \
       tags="latest" \
-      maintainer="Magicalex <magicalex@mondedie.fr>"
+      maintainer="Nicolas Chan <github@nicolaschan.com>"
 
 ENV GID=991 UID=991
 COPY rootfs /
 
-RUN apk add --no-progress --no-cache \
-    murmur \
-    su-exec \
+RUN apt-get update \
+  && apt-get install -y mumble-server sudo \
   && chmod +x /usr/local/bin/*
 
 VOLUME /opt/mumble/conf /opt/mumble/data
